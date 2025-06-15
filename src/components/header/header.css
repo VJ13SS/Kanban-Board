@@ -1,0 +1,38 @@
+header,.header__details,.header__left,.header__right,.header__input{
+    display: flex;
+    display: flex;
+    align-items: center;
+}
+
+header{
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.header__details,.header__left,.header__right,.header__input{
+    justify-content: center;
+    gap: 10px;
+}
+
+header button{
+    background-color: white;
+    border: 1px solid gray;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.header__input{
+    border: 1px solid gray;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.header__input input{
+    border: none;
+    outline: none;
+    width: 150px;
+}
+
+
+
+

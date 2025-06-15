@@ -1,0 +1,46 @@
+.kanban-board{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 15px;
+    overflow-x: scroll;
+    min-height: 90vh;
+    font-weight: 500;
+}
+
+.kanban-board .section{
+    width: 1000px;
+    
+}
+
+.section__tasks{
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    background-color: rgba(205, 203, 203, 0.348);
+    border-radius: 10px;
+    
+}
+
+.section__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section__options{
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.kanban-board button{
+    background-color: white;
+    flex-shrink: 0;
+    border: none;
+    color: gray;
+    font-weight: 500;
+    cursor: pointer;
+}
