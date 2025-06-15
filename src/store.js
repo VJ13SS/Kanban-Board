@@ -1,25 +1,44 @@
-import { create } from "zustand"
+import { create } from "zustand";
 
 const store = (set) => ({
-    //STATE
-    sections:{
-        ToDo:[{id:'1',task:'A'},{id:'2',task:'B'}],
-        InProgress:[{id:'1',task:'A'},{id:'2',task:'B'}],
-        Done:[{id:'1',task:'A'},{id:'2',task:'B'}],
-    },
+  //STATE
+  sections: {
+    ToDo: [],
+    InProgress: [],
+    Done: [],
+  },
+  addTaskPopUp: false,
 
-    //ACTIONS
-    addNewSection:(newSection) => set((state) => {
-        const lastSection = state.sections['Done']
-        delete state.sections['Done']
-        return(
-            {sections:{...state.sections,[newSection]:[],Done:lastSection}}
-        )
+  //ACTIONS
+  toggleTaskPopup: () =>
+    set((state) => ({ addTaskPopUp: !state.addTaskPopUp })),
+  addNewSection: (newSection) =>
+    set((state) => {
+      const lastSection = state.sections["Done"];
+      delete state.sections["Done"];
+      return {
+        sections: { ...state.sections, [newSection]: [], Done: lastSection },
+      };
     }),
-    addNewTask:(section,task) => set((state) => ({sections:{...state.sections,[section]:[...state.sections.section,task]}}))
-    
-})
+  addNewTask: (section, task) =>
+    set((state) => ({
+      sections: {
+        ...state.sections,
+        [section]: [...state.sections[section], task],
+      },
+      addTaskPopUp: !state.addTaskPopUp,
+    })),
+    deleteSection:(section) => ((state) => {
+        console.log(state.sections)
+        if(section === "ToDo" || section === "InProgress" || section === "Done"){
+            alert(`Cannot delete the ${section} Section`)
+            return
+        }
 
-const useStore = create(store)
+        delete state.sections.section
+    })
+});
 
-export default useStore
+const useAppStore = create(store);
+
+export default useAppStore;

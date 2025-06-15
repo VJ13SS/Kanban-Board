@@ -1,6 +1,6 @@
 .kanban-board{
     display: flex;
-    justify-content: space-evenly;
+    
     align-items: flex-start;
     gap: 15px;
     overflow-x: scroll;
@@ -8,9 +8,9 @@
     font-weight: 500;
 }
 
-.kanban-board .section{
-    width: 1000px;
-    
+.section{
+    width: 300px;
+    flex-shrink: 0;
 }
 
 .section__tasks{
@@ -21,13 +21,14 @@
     padding: 10px;
     background-color: rgba(205, 203, 203, 0.348);
     border-radius: 10px;
-    
+    cursor: pointer;
 }
 
 .section__header{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .section__options{

@@ -1,0 +1,73 @@
+.add-task{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-task form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+    gap: 10px;
+    background-color: white;
+    min-width: 50vw;
+    border-radius: 15px;
+    position: relative;
+    border: 1px solid gray;
+    animation: fadeIn 2s;
+    font-weight: 500;
+}
+
+@keyframes fadeIn {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+.add-task form label{
+    font-size: 1rem;
+}
+
+.add-task form input{
+    border-bottom: 1px solid gray;
+}
+
+.add-task__user{
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+}
+
+.add-task__user figure{
+    width: 80px;
+}
+
+.add-task button{
+    padding: 7px;
+    background-color: black;
+    font-weight: 500;
+    color: white;
+    width: 50%;
+    align-self: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.close-icon{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}

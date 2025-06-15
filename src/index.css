@@ -6,7 +6,30 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+::-webkit-scrollbar{
+  display: none;
+}
+
 .app{
   padding: 20px;
   min-height: 100vh;
+  width: 100vw;
 }
+
+input,textarea{
+  border: none;
+  outline: none;
+  border-bottom: 1px solid gray;
+  cursor: pointer;
+}
+
+textarea{
+  resize: none;
+}
+
+figure img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
