@@ -1,19 +1,20 @@
 import { MdMoreHoriz } from "react-icons/md";
 import "./task.css";
 import { useState } from "react";
+import useAppStore from "../../store";
 
-export default function Task({ task }) {
+export default function Task({ task,taskSection,provided }) {
 
-  const [deleteTask,setDeleteTask] = useState(false)
+  const deleteTask = useAppStore((state) => state.deleteTask)
 
   return (
-    <div className="task">
+    <div className="task" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
       <div className="task__header">
         <p>{task.description}</p>
         <div className="task__menu">
         <MdMoreHoriz />
            <div className="task__dropdown">
-        <span className="task__delete">Delete</span>
+        <span className="task__delete" onClick={()=> deleteTask(taskSection,task.id)}>Delete</span>
       </div>
       </div>
       </div>

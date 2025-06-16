@@ -11,6 +11,10 @@ export default function AddTask({ taskSection }) {
   const addNewTask = useAppStore((state) => state.addNewTask);
   const [newTask,setNewTask] = useState({})
   const onSubmitHandler = (e) => {
+    if(!image){
+      alert('Please Insert Attendee Image..!')
+      return
+    }
     e.preventDefault()
     addNewTask(taskSection,{...newTask,userImg:image,id:uuidv4()})
   }

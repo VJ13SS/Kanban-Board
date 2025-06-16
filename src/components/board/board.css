@@ -1,11 +1,17 @@
 .kanban-board{
     display: flex;
-    
+    min-height: 90vh;
+    font-weight: 500;
+    position: relative;
+    padding-top: 20px;
+}
+
+.kanban-board__sections{
+    display: flex;
     align-items: flex-start;
     gap: 15px;
     overflow-x: scroll;
-    min-height: 90vh;
-    font-weight: 500;
+    padding: 5px;
 }
 
 .section{
@@ -31,17 +37,49 @@
     margin-bottom: 10px;
 }
 
+.section__delete{
+    position: relative;
+}
+
+.section__dropdown{
+    display: none;
+    background-color: white;
+    color: red;
+    border: 1px solid gray;
+    padding: 5px;
+    width: fit-content;
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    animation: enlarge 0.2s;
+}
+
+.section__delete:hover .section__dropdown{
+    display: block;
+}
+
 .section__options{
     display: flex;
     gap: 10px;
     cursor: pointer;
 }
 
-.kanban-board button{
+.kanban-board__new-section{
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    gap: 5px;
+}
+
+.kanban-board__new-section button{
     background-color: white;
     flex-shrink: 0;
     border: none;
     color: gray;
     font-weight: 500;
     cursor: pointer;
+    
 }

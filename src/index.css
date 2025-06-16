@@ -33,3 +33,13 @@ figure img{
   object-fit: cover;
 }
 
+@keyframes enlarge{
+    0%{
+        width: 0px;
+        font-size: 0rem;
+    }
+    100%{
+        
+        width: fit-content;
+    }
+}
