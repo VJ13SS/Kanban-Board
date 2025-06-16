@@ -49,13 +49,21 @@
   color: red;
   border-radius: 3px;
   position: absolute;
-  top: -5px;
+  top: 15px;
   right: 7px;
   display: none;
   font-size: 0.85rem;
-  animation: enlarge 0.2s;
+  
 }
 
 .task__menu:hover .task__dropdown {
   display: block;
+}
+
+.tomorrow{
+  color: blue;
+}
+
+.yesterday{
+  color: red;
 }

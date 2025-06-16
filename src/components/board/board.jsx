@@ -14,7 +14,6 @@ export default function Board() {
   const toggleTaskPopup = useAppStore((state) => state.toggleTaskPopup);
   const [taskSection, setTaskSection] = useState("");
   const scrollRef = useRef(null)
- 
 
   useEffect(() => {
     if(scrollRef.current){
@@ -23,9 +22,9 @@ export default function Board() {
   },[sections])
   
   return (
-    <main className="kanban-board">
+    <main className="kanban-board" ref={scrollRef}>
       
-      <div className="kanban-board__sections" ref={scrollRef}>
+      <div className="kanban-board__sections" >
         {Object.entries(sections).map(([section, taskList], index) => (
           <Droppable droppableId={section.toString()}>
             {(provided) => (

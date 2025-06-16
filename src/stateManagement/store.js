@@ -24,7 +24,7 @@ const store = (set) => ({
     set((state) => ({
       sections: {
         ...state.sections,
-        [section]: [...state.sections[section], task],
+        [section]: [task,...state.sections[section]],
       },
       addTaskPopUp: !state.addTaskPopUp,
       
@@ -40,6 +40,7 @@ const store = (set) => ({
     return {sections:{...state.sections}}
   }),
   deleteTask:(section,id) => set((state) => {
+    confirm('Do You Wish To Delete The Following?')
     return {
       sections:{...state.sections,[section]:state.sections[section].filter((task) => task.id !== id)}
     }

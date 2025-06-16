@@ -55,7 +55,6 @@
     right: 0px;
     border-radius: 5px;
     font-size: 0.95rem;
-    animation: enlarge 0.2s;
 }
 
 .section__delete:hover .section__dropdown{

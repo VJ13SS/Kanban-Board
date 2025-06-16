@@ -6,6 +6,21 @@ import useAppStore from "../../stateManagement/store";
 export default function Task({ task, taskSection, provided }) {
   const deleteTask = useAppStore((state) => state.deleteTask);
 
+  const checkDate = (date) => {
+    const today = new Date();
+    const given = new Date(date);
+
+    //Normalize to MidNight
+    today.setHours(0, 0, 0, 0);
+    given.setHours(0, 0, 0, 0);
+
+    const diffDays = (given - today) / (1000 * 60 * 60 * 24);
+
+    if (diffDays === 1) return "Tomorrow";
+    if (diffDays === 0) return "Today";
+    if (diffDays === -1) return "Yesterday";
+    return "Other";
+  };
   return (
     <div
       className="task"
@@ -33,7 +48,25 @@ export default function Task({ task, taskSection, provided }) {
             src={URL.createObjectURL(task.userImg)}
             alt="Photo of assigned user."
           />
-          <span className="">{task.date}</span>
+          <span
+            className={`${
+              checkDate(task.date) === "Today"
+                ? "today"
+                : checkDate(task.date) === "Tomorrow"
+                ? "tomorrow"
+                : checkDate(task.date) === "Yesterday"
+                ? "yesterday"
+                : ""
+            }`}
+          >
+            {checkDate(task.date) === "Today"
+              ? "Today"
+              : checkDate(task.date) === "Tomorrow"
+              ? "Tomorrow"
+              : checkDate(task.date) === "Yesterday"
+              ? "Yesterday"
+              : task.date}
+          </span>
         </div>
 
         <span className="task__category">{task.category}</span>
