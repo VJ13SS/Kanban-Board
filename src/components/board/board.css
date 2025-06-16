@@ -1,17 +1,18 @@
 .kanban-board{
     display: flex;
+    flex-direction: column;
     min-height: 90vh;
     font-weight: 500;
-    position: relative;
-    padding-top: 20px;
+    overflow-x: auto;
 }
 
 .kanban-board__sections{
     display: flex;
     align-items: flex-start;
+    justify-content: center;
     gap: 15px;
+    min-width: max-content;
     overflow-x: scroll;
-    padding: 5px;
 }
 
 .section{
@@ -20,7 +21,7 @@
 }
 
 .section__tasks{
-    min-height: 80vh;
+    height: 80vh;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -28,6 +29,7 @@
     background-color: rgba(205, 203, 203, 0.348);
     border-radius: 10px;
     cursor: pointer;
+    overflow-y: scroll;
 }
 
 .section__header{
@@ -66,20 +68,3 @@
     cursor: pointer;
 }
 
-.kanban-board__new-section{
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    gap: 5px;
-}
-
-.kanban-board__new-section button{
-    background-color: white;
-    flex-shrink: 0;
-    border: none;
-    color: gray;
-    font-weight: 500;
-    cursor: pointer;
-    
-}

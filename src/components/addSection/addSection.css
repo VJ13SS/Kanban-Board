@@ -1,0 +1,22 @@
+.add-new-section{
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+    align-self: flex-end;
+}
+
+.add-new-section button{
+    background-color: white;
+    flex-shrink: 0;
+    border: none;
+    color: gray;
+    font-weight: 500;
+    cursor: pointer;
+    
+}
+
+@media(max-width:400px){
+    .add-new-section{
+        align-self: center;
+    }
+}

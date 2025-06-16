@@ -6,7 +6,6 @@ header,.header__details,.header__left,.header__right,.header__input{
 
 header{
     justify-content: space-between;
-    margin-bottom: 25px;
 }
 
 .header__details,.header__left,.header__right,.header__input{
@@ -35,4 +34,10 @@ header button{
 
 
 
-
+@media (max-width:455px){
+    header{
+        flex-direction: column;
+        gap: 5px;
+        padding-top: 5px;
+    }
+}

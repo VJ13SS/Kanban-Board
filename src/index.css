@@ -11,9 +11,13 @@
 }
 
 .app{
-  padding: 20px;
+  position: relative;
   min-height: 100vh;
   width: 100vw;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 input,textarea{

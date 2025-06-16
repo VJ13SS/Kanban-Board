@@ -27,6 +27,7 @@ const store = (set) => ({
         [section]: [...state.sections[section], task],
       },
       addTaskPopUp: !state.addTaskPopUp,
+      
     })),
   deleteSection: (section) => set((state) =>{
     if(section === 'ToDo' || section === 'InProgress' || section === 'Done'){
@@ -35,7 +36,7 @@ const store = (set) => ({
     }
 
     delete state.sections[section]
-    confirm(`Do You Wish To Delete The ${section} Section?`)
+    confirm(`Do You Wish To Delete ${section} Section?`)
     return {sections:{...state.sections}}
   }),
   deleteTask:(section,id) => set((state) => {

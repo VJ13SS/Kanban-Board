@@ -1,30 +1,29 @@
 import { useState } from "react";
 import "./addTask.css";
 import { MdClose } from "react-icons/md";
-import useAppStore from "../../store";
-import {v4 as uuidv4} from 'uuid'
-
+import useAppStore from "../../stateManagement/store";
+import { v4 as uuidv4 } from "uuid";
 
 export default function AddTask({ taskSection }) {
   const [image, setImage] = useState(false);
   const toggleTaskPopup = useAppStore((state) => state.toggleTaskPopup);
   const addNewTask = useAppStore((state) => state.addNewTask);
-  const [newTask,setNewTask] = useState({})
+  const [newTask, setNewTask] = useState({});
   const onSubmitHandler = (e) => {
-    if(!image){
-      alert('Please Insert Attendee Image..!')
-      return
+    if (!image) {
+      alert("Please Insert Attendee Image..!");
+      return;
     }
-    e.preventDefault()
-    addNewTask(taskSection,{...newTask,userImg:image,id:uuidv4()})
-  }
+    e.preventDefault();
+    addNewTask(taskSection, { ...newTask, userImg: image, id: uuidv4() });
+  };
   return (
     <div className="add-task">
       <form onSubmit={onSubmitHandler}>
         <MdClose className="close-icon" onClick={toggleTaskPopup} />
         <label>Section: </label>
-        <input type="text" value={taskSection} />
-        <label>Task Category: </label>
+        <input type="text" value={taskSection} readOnly/>
+        <label>Task Name / Category: </label>
         <input
           type="text"
           name="category"

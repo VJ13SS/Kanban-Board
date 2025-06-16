@@ -1,5 +1,5 @@
-import { useState } from "react";
-import useAppStore from "../../store";
+import { useEffect, useRef, useState } from "react";
+import useAppStore from "../../stateManagement/store";
 import "./board.css";
 import Task from "../task/task";
 import { MdMoreHoriz } from "react-icons/md";
@@ -9,23 +9,25 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 
 export default function Board() {
   const sections = useAppStore((state) => state.sections);
-  const addnewSection = useAppStore((state) => state.addNewSection);
   const deleteSection = useAppStore((state) => state.deleteSection);
   const addTaskFlag = useAppStore((state) => state.addTaskPopUp);
   const toggleTaskPopup = useAppStore((state) => state.toggleTaskPopup);
   const [taskSection, setTaskSection] = useState("");
-  const [newSection, setNewSection] = useState("");
+  const scrollRef = useRef(null)
+ 
 
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
-    addnewSection(newSection);
-    setNewSection("");
-  };
+  useEffect(() => {
+    if(scrollRef.current){
+      scrollRef.current.scrollLeft = scrollRef.current.scrollWidth
+    }
+  },[sections])
+  
   return (
     <main className="kanban-board">
-      <div className="kanban-board__sections">
+      
+      <div className="kanban-board__sections" ref={scrollRef}>
         {Object.entries(sections).map(([section, taskList], index) => (
-          <Droppable droppableId={`${section}`}>
+          <Droppable droppableId={section.toString()}>
             {(provided) => (
               <div
                 className="section"
@@ -54,14 +56,12 @@ export default function Board() {
 
                 <div className="section__tasks">
                   {taskList.map((task, indx) => (
-                    <Draggable draggableId={index.toString()} index={indx}>
+                    <Draggable draggableId={task.id.toString()} index={indx}>
                       {(provided) => (
-                        
                         <Task
                           key={task.id}
                           task={task}
                           taskSection={section}
-
                           provided={provided}
                         />
                       )}
@@ -75,28 +75,13 @@ export default function Board() {
                   >
                     + Add Task
                   </span>
-                  
                 </div>
               </div>
             )}
           </Droppable>
         ))}
       </div>
-      <form
-        className="kanban-board__new-section"
-        onSubmit={(e) => onSubmitHandler(e)}
-      >
-        <input
-          type="text"
-          onChange={(e) => setNewSection(e.target.value)}
-          value={newSection}
-          placeholder="Eg: Reviews"
-          required
-        />
-        <button>
-          <FiPlus /> Add Section
-        </button>
-      </form>
+      
 
       {addTaskFlag && <AddTask taskSection={taskSection} />}
     </main>
