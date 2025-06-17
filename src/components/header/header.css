@@ -43,7 +43,7 @@ header button{
 
 
 
-@media (max-width:455px){
+@media (max-width:505px){
     header{
         flex-direction: column;
         gap: 5px;

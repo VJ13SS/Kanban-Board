@@ -6,6 +6,7 @@ import { MdMoreHoriz } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
 import AddTask from "../addTask/addTask";
 import { Draggable, Droppable } from "react-beautiful-dnd";
+import AddSection from "../addSection/addSection";
 
 export default function Board() {
   //STATE
@@ -34,69 +35,74 @@ export default function Board() {
   }, [Object.keys(sections).length]);
 
   return (
-    <main className="kanban-board" ref={scrollRef}>
-      <div className="kanban-board__sections">
-        {Object.entries(sections).map(([section, taskList], index) => (
-          <Droppable droppableId={section.toString()}>
-            {(provided) => (
-              <div
-                className="section"
-                key={index}
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-              >
-                <div className="section__header">
-                  {section}
-                  <div className="section__options">
-                    <FiPlus
-                      onClick={() => {
-                        return [setTaskSection(section), toggleTaskPopup()];
-                      }}
-                    />
-                    <div className="section__delete">
-                      <MdMoreHoriz />
-                      <div className="section__dropdown">
-                        <span onClick={() => deleteSection(section)}>
-                          Delete
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="section__tasks">
-                  {taskList.map((task, indx) => (
-                    <Draggable
-                      draggableId={task.id.toString()}
-                      index={indx}
-                      key={task.id}
-                    >
-                      {(provided) => (
-                        <Task
-                          task={task}
-                          taskSection={section}
-                          provided={provided}
-                        />
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                  {taskList.length == 0 &&
-                  <span
+    <main className="container">
+      <div className="kanban-board" ref={scrollRef}>
+        <div className="kanban-board__sections">
+          {Object.entries(sections).map(([section, taskList], index) => (
+            <div className="section" key={index}>
+              <div className="section__header">
+                {section}
+                <div className="section__options">
+                  <FiPlus
                     onClick={() => {
                       return [setTaskSection(section), toggleTaskPopup()];
                     }}
-                  >
-                    + Add Task
-                  </span>}
+                  />
+                  <div className="section__delete">
+                    <MdMoreHoriz />
+                    <div className="section__dropdown">
+                      <span onClick={() => deleteSection(section)}>Delete</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            )}
-          </Droppable>
-        ))}
-      </div>
 
-      {addTaskFlag && <AddTask taskSection={taskSection} />}
+              <Droppable droppableId={section.toString()}>
+                {(provided) => (
+                  <div
+                    className="section__tasks"
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                  >
+                    {taskList.map((task, indx) => (
+                      <Draggable
+                        draggableId={task.id.toString()}
+                        index={indx}
+                        key={task.id}
+                      >
+                        {(provided, snapshot) => (
+                          <div className={`task-container`}>
+                            <Task
+                              task={task}
+                              taskSection={section}
+                              provided={provided}
+                              snapshot={snapshot}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+
+                    {taskList.length == 0 && (
+                      <span
+                        onClick={() => {
+                          return [setTaskSection(section), toggleTaskPopup()];
+                        }}
+                      >
+                        + Add Task
+                      </span>
+                    )}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </div>
+          ))}
+        </div>
+
+        {addTaskFlag && <AddTask taskSection={taskSection} />}
+      </div>
+      <AddSection />
     </main>
   );
 }

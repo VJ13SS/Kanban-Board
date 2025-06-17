@@ -1,9 +1,14 @@
-.kanban-board{
-    display: flex;
-    flex-direction: column;
-    height: 90vh;
+.container{
+display: flex;
+justify-content: center;
     font-weight: 500;
+    gap: 10px;
+    
+}
+
+.kanban-board{
     overflow-x: auto;
+    padding-inline: 5px;
 }
 
 .kanban-board__sections{
@@ -12,6 +17,8 @@
     justify-content: center;
     gap: 15px;
     min-width: max-content;
+    padding: 5px;
+    
 }
 
 .section{
@@ -24,19 +31,27 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    gap: 10px;
     padding: 10px;
-    background-color: rgba(205, 203, 203, 0.348);
+    background-color: #f5f5f5;
     border-radius: 10px;
     cursor: pointer;
+    
     overflow-y: auto;
    
 }
 
+.task-container{
+    width: 100%;
+    min-height: 90px;
+    background: rgba(113, 112, 112, 0.1);
+    border-radius: 10px;
+}
 .section__header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .section__delete{
@@ -67,8 +82,14 @@
     cursor: pointer;
 }
 
-@media (max-width:455px){
-    .section{
-        width: 95vw;
+
+.drag{
+  box-shadow: 0px 0px 5px black;
+  border: 2px dashed black;
+  background-color: red;
+}
+@media (max-width:500px){
+    .container{
+        flex-direction: column-reverse;
     }
 }

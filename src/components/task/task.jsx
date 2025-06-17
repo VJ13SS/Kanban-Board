@@ -2,7 +2,7 @@ import { MdMoreHoriz } from "react-icons/md";
 import "./task.css";
 import useAppStore from "../../stateManagement/store";
 
-export default function Task({ task, taskSection, provided }) {
+export default function Task({ task, taskSection, provided,snapshot }) {
   //Function to Delete the respective Task
   const deleteTask = useAppStore((state) => state.deleteTask);
 
@@ -65,7 +65,7 @@ export default function Task({ task, taskSection, provided }) {
                 ? "tomorrow"
                 : checkDate(task.date) === "Yesterday"
                 ? "yesterday"
-                : ""
+                : "other"
             }`}
           >
             {checkDate(task.date)}

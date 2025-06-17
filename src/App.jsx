@@ -10,12 +10,17 @@ export default function App() {
 
   //onDragEnd Function
   const onDragEnd = (result) => {
+    console.log(result)
     const { source, destination } = result;
 
     if (!destination) return;
 
-    if (destination.droppableId === source.droppableId) return;
+    if (destination.droppableId === source.droppableId && source.index === destination.index ) return;
 
+    console.log(source.droppableId,
+      source.index,
+      destination.droppableId,
+      destination.index)
     modifySectionTasks(
       source.droppableId,
       source.index,
@@ -28,7 +33,7 @@ export default function App() {
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="app">
         <Header />
-        <AddSection />
+        
         <Board />
       </div>
     </DragDropContext>

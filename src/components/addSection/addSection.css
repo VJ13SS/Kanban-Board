@@ -2,7 +2,9 @@
     display: flex;
     gap: 5px;
     padding: 5px;
-    align-self: flex-end;
+    align-items: flex-start;
+    flex-direction: column;
+   width: fit-content;
 }
 
 .add-new-section button{
@@ -10,13 +12,18 @@
     flex-shrink: 0;
     border: none;
     color: gray;
-    font-weight: 500;
     cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    justify-content:flex-start;
+    width: 120px;
     
 }
 
-@media(max-width:400px){
+@media(max-width:700px){
     .add-new-section{
-        align-self: center;
+        width: 30%;
     }
 }
+
+
