@@ -81,13 +81,14 @@ export default function Board() {
                     </Draggable>
                   ))}
                   {provided.placeholder}
+                  {taskList.length == 0 &&
                   <span
                     onClick={() => {
                       return [setTaskSection(section), toggleTaskPopup()];
                     }}
                   >
                     + Add Task
-                  </span>
+                  </span>}
                 </div>
               </div>
             )}
