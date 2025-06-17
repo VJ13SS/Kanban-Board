@@ -47,6 +47,7 @@ justify-content: center;
     background: rgba(113, 112, 112, 0.1);
     border-radius: 10px;
 }
+
 .section__header{
     display: flex;
     justify-content: space-between;
