@@ -24,6 +24,8 @@ export default function Board() {
 
       const length = sectionElements.length;
       const secondLastSection = sectionElements[length - 2];
+
+      //scroll to the second last section
       scrollRef.current.scrollTo({
         left: secondLastSection.offsetLeft,
         behavior: "smooth",
