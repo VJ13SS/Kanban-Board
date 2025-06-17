@@ -32,6 +32,10 @@
    
 }
 
+.section__tasks span{
+    color: gray;
+}
+
 .section__header{
     display: flex;
     justify-content: space-between;
