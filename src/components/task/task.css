@@ -51,7 +51,7 @@
 .task__dropdown {
   background-color: white;
   border: 1px solid gray;
-  padding-inline: 7px;
+  padding: 5px 7px;
   color: red;
   border-radius: 3px;
   position: absolute;
@@ -70,7 +70,7 @@
   font-weight: 600;
 }
 
-.yesterday {
+.before {
   color: red;
   font-weight: 600;
 }

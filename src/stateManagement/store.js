@@ -72,12 +72,12 @@ const store = (set) => ({
     //get the current task which was dragged
     let currentTask = state.sections[sourceSection][sourceIndx]
 
+    
     //delete the rescpective task from the source array
     state.sections[sourceSection].splice(sourceIndx,1)
 
     //add the task to the destination array
     state.sections[destinationSection].splice(destinationIndx,0,currentTask)
-    
     return {
       sections:{...state.sections}
     }

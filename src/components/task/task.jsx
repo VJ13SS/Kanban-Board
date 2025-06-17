@@ -18,14 +18,14 @@ export default function Task({ task, taskSection, provided,snapshot }) {
     //calculate the difference in days
     const diffDays = (given - today) / (1000 * 60 * 60 * 24);
 
-    if (diffDays === 1) return "Tomorrow";
-    if (diffDays === 0) return "Today";
-    if (diffDays === -1) return "Yesterday";
+    if (diffDays === 1) return [diffDays,"Tomorrow"];
+    if (diffDays === 0) return [diffDays,"Today"];
+    if (diffDays === -1) return [diffDays,"Yesterday"];
 
     //Format date to dd-month fromat
     const formattedDate = { day: "numeric", month: "long" };
 
-    return given.toLocaleDateString("en-GB", formattedDate);
+    return [diffDays,given.toLocaleDateString("en-GB", formattedDate)];
   };
 
   return (
@@ -59,16 +59,16 @@ export default function Task({ task, taskSection, provided,snapshot }) {
           />
           <span
             className={`${
-              checkDate(task.date) === "Today"
+              checkDate(task.date)[0] === 0
                 ? "today"
-                : checkDate(task.date) === "Tomorrow"
+                : checkDate(task.date)[0] === 1
                 ? "tomorrow"
-                : checkDate(task.date) === "Yesterday"
-                ? "yesterday"
+                : checkDate(task.date)[0] < 0
+                ? "before"
                 : "other"
             }`}
           >
-            {checkDate(task.date)}
+            {checkDate(task.date)[1]}
           </span>
         </div>
 

@@ -41,7 +41,13 @@ export default function Board() {
           {Object.entries(sections).map(([section, taskList], index) => (
             <div className="section" key={index}>
               <div className="section__header">
-                {section}
+                <span>
+                  {section === "ToDo"
+                    ? "To Do"
+                    : section === "InProgress"
+                    ? "In Progress"
+                    : section}
+                </span>
                 <div className="section__options">
                   <FiPlus
                     onClick={() => {
@@ -58,33 +64,38 @@ export default function Board() {
               </div>
 
               <Droppable droppableId={section.toString()}>
-                {(provided) => (
+                {(provided, snapshot) => (
                   <div
-                    className="section__tasks"
+                    className={`section__tasks `}
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                   >
                     {taskList.map((task, indx) => (
-                      <Draggable
-                        draggableId={task.id.toString()}
-                        index={indx}
-                        key={task.id}
+                      <div
+                        className={`${
+                          snapshot.isDragging ? "drag" : "task-container "
+                        } }`}
                       >
-                        {(provided, snapshot) => (
-                          <div className={`task-container`}>
+                        <Draggable
+                          draggableId={task.id.toString()}
+                          index={indx}
+                          key={task.id}
+                        >
+                          {(provided, snapshot) => (
                             <Task
                               task={task}
                               taskSection={section}
                               provided={provided}
                               snapshot={snapshot}
                             />
-                          </div>
-                        )}
-                      </Draggable>
+                          )}
+                        </Draggable>
+                      </div>
                     ))}
 
                     {taskList.length == 0 && (
                       <span
+                        className="section__add-task"
                         onClick={() => {
                           return [setTaskSection(section), toggleTaskPopup()];
                         }}
@@ -92,7 +103,6 @@ export default function Board() {
                         + Add Task
                       </span>
                     )}
-                    {provided.placeholder}
                   </div>
                 )}
               </Droppable>
