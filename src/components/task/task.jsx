@@ -1,6 +1,5 @@
 import { MdMoreHoriz } from "react-icons/md";
 import "./task.css";
-import { useState } from "react";
 import useAppStore from "../../stateManagement/store";
 
 export default function Task({ task, taskSection, provided }) {
