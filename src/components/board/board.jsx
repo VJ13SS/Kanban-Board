@@ -8,23 +8,32 @@ import AddTask from "../addTask/addTask";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
 export default function Board() {
+  //STATE
+  const [taskSection, setTaskSection] = useState("");
+  const scrollRef = useRef(null);
   const sections = useAppStore((state) => state.sections);
+
+  //ACTION
   const deleteSection = useAppStore((state) => state.deleteSection);
   const addTaskFlag = useAppStore((state) => state.addTaskPopUp);
   const toggleTaskPopup = useAppStore((state) => state.toggleTaskPopup);
-  const [taskSection, setTaskSection] = useState("");
-  const scrollRef = useRef(null)
 
   useEffect(() => {
-    if(scrollRef.current){
-      scrollRef.current.scrollLeft = scrollRef.current.scrollWidth
+    if (scrollRef.current) {
+      const sectionElements = scrollRef.current.querySelectorAll(".section");
+
+      const length = sectionElements.length;
+      const secondLastSection = sectionElements[length - 2];
+      scrollRef.current.scrollTo({
+        left: secondLastSection.offsetLeft,
+        behavior: "smooth",
+      });
     }
-  },[sections])
-  
+  }, [Object.keys(sections).length]);
+
   return (
     <main className="kanban-board" ref={scrollRef}>
-      
-      <div className="kanban-board__sections" >
+      <div className="kanban-board__sections">
         {Object.entries(sections).map(([section, taskList], index) => (
           <Droppable droppableId={section.toString()}>
             {(provided) => (
@@ -55,10 +64,13 @@ export default function Board() {
 
                 <div className="section__tasks">
                   {taskList.map((task, indx) => (
-                    <Draggable draggableId={task.id.toString()} index={indx}>
+                    <Draggable
+                      draggableId={task.id.toString()}
+                      index={indx}
+                      key={task.id}
+                    >
                       {(provided) => (
                         <Task
-                          key={task.id}
                           task={task}
                           taskSection={section}
                           provided={provided}
@@ -80,7 +92,6 @@ export default function Board() {
           </Droppable>
         ))}
       </div>
-      
 
       {addTaskFlag && <AddTask taskSection={taskSection} />}
     </main>

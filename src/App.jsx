@@ -2,12 +2,13 @@ import Header from "./components/header/header";
 import Board from "./components/Board/board";
 import { DragDropContext } from "react-beautiful-dnd";
 import useAppStore from "./stateManagement/store";
-import { useState } from "react";
 import AddSection from "./components/addSection/addSection";
 
 export default function App() {
+  //Function to rearrange the tasks on each section
   const modifySectionTasks = useAppStore((state) => state.modifySectionTasks);
 
+  //onDragEnd Function
   const onDragEnd = (result) => {
     const { source, destination } = result;
 
@@ -27,7 +28,6 @@ export default function App() {
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="app">
         <Header />
-
         <AddSection />
         <Board />
       </div>

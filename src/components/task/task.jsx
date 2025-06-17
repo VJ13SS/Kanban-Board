@@ -4,8 +4,10 @@ import { useState } from "react";
 import useAppStore from "../../stateManagement/store";
 
 export default function Task({ task, taskSection, provided }) {
+  //Function to Delete the respective Task
   const deleteTask = useAppStore((state) => state.deleteTask);
 
+  //Functon to Format the Date
   const checkDate = (date) => {
     const today = new Date();
     const given = new Date(date);
@@ -14,19 +16,26 @@ export default function Task({ task, taskSection, provided }) {
     today.setHours(0, 0, 0, 0);
     given.setHours(0, 0, 0, 0);
 
+    //calculate the difference in days
     const diffDays = (given - today) / (1000 * 60 * 60 * 24);
 
     if (diffDays === 1) return "Tomorrow";
     if (diffDays === 0) return "Today";
     if (diffDays === -1) return "Yesterday";
-    return "Other";
+
+    //Format date to dd-month fromat
+    const formattedDate = { day: "numeric", month: "long" };
+
+    return given.toLocaleDateString("en-GB", formattedDate);
   };
+
   return (
     <div
       className="task"
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
+      
     >
       <div className="task__header">
         <p>{task.description}</p>
@@ -42,6 +51,7 @@ export default function Task({ task, taskSection, provided }) {
           </div>
         </div>
       </div>
+      
       <div className="task__footer">
         <div className="task__info">
           <img
@@ -59,13 +69,7 @@ export default function Task({ task, taskSection, provided }) {
                 : ""
             }`}
           >
-            {checkDate(task.date) === "Today"
-              ? "Today"
-              : checkDate(task.date) === "Tomorrow"
-              ? "Tomorrow"
-              : checkDate(task.date) === "Yesterday"
-              ? "Yesterday"
-              : task.date}
+            {checkDate(task.date)}
           </span>
         </div>
 

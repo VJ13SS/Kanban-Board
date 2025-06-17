@@ -13,6 +13,15 @@ header{
     gap: 10px;
 }
 
+.header__details figure{
+    width: 35px;
+    
+}
+
+.header__details img{
+    border-radius: 5px;
+}
+
 header button{
     background-color: white;
     border: 1px solid gray;

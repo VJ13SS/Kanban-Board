@@ -5,24 +5,30 @@ import useAppStore from "../../stateManagement/store";
 import { v4 as uuidv4 } from "uuid";
 
 export default function AddTask({ taskSection }) {
-  const [image, setImage] = useState(false);
+  //STATE
+  const [userImg, setUserImg] = useState(false);
+  const [newTask, setNewTask] = useState({});
+
+  //ACTIONS
   const toggleTaskPopup = useAppStore((state) => state.toggleTaskPopup);
   const addNewTask = useAppStore((state) => state.addNewTask);
-  const [newTask, setNewTask] = useState({});
   const onSubmitHandler = (e) => {
-    if (!image) {
-      alert("Please Insert Attendee Image..!");
+    if (!userImg) {
+      alert("Please Insert Attendee userImg..!");
       return;
     }
     e.preventDefault();
-    addNewTask(taskSection, { ...newTask, userImg: image, id: uuidv4() });
+    addNewTask(taskSection, { ...newTask, userImg: userImg, id: uuidv4() });
   };
+
   return (
     <div className="add-task">
       <form onSubmit={onSubmitHandler}>
         <MdClose className="close-icon" onClick={toggleTaskPopup} />
+
         <label>Section: </label>
-        <input type="text" value={taskSection} readOnly/>
+        <input type="text" value={taskSection} readOnly />
+
         <label>Task Name / Category: </label>
         <input
           type="text"
@@ -35,11 +41,10 @@ export default function AddTask({ taskSection }) {
         />
 
         <label>Descritpion: </label>
-        <textarea
+        <input
+          type="text"
           placeholder="Fixing Bugs"
           name="description"
-          rows={1}
-          cols={26}
           required
           onChange={(e) =>
             setNewTask((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -57,11 +62,11 @@ export default function AddTask({ taskSection }) {
         />
 
         <label htmlFor="userImg" className="add-task__user">
-          <span>Upload User Image: </span>
+          <span>Upload Assignee Image: </span>
           <figure>
             <img
-              src={image ? URL.createObjectURL(image) : "/upload_area.png"}
-              alt="The Image Of User Uploaded will appear here."
+              src={userImg ? URL.createObjectURL(userImg) : "/upload_area.png"}
+              alt="The Image of User assigned with the task."
             />
           </figure>
         </label>
@@ -72,10 +77,11 @@ export default function AddTask({ taskSection }) {
           id="userImg"
           required
           hidden
-          onChange={(e) => setImage(e.target.files[0])}
+          onChange={(e) => setUserImg(e.target.files[0])}
         />
 
         <button type="submit">Add Task</button>
+
       </form>
     </div>
   );
