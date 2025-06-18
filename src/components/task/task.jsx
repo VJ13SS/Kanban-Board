@@ -2,7 +2,7 @@ import { MdMoreHoriz } from "react-icons/md";
 import "./task.css";
 import useAppStore from "../../stateManagement/store";
 
-export default function Task({ task, taskSection, provided,snapshot }) {
+export default function Task({ task, taskSection, provided, snapshot }) {
   //Function to Delete the respective Task
   const deleteTask = useAppStore((state) => state.deleteTask);
 
@@ -18,14 +18,14 @@ export default function Task({ task, taskSection, provided,snapshot }) {
     //calculate the difference in days
     const diffDays = (given - today) / (1000 * 60 * 60 * 24);
 
-    if (diffDays === 1) return [diffDays,"Tomorrow"];
-    if (diffDays === 0) return [diffDays,"Today"];
-    if (diffDays === -1) return [diffDays,"Yesterday"];
+    if (diffDays === 1) return [diffDays, "Tomorrow"];
+    if (diffDays === 0) return [diffDays, "Today"];
+    if (diffDays === -1) return [diffDays, "Yesterday"];
 
     //Format date to dd-month fromat
     const formattedDate = { day: "numeric", month: "long" };
 
-    return [diffDays,given.toLocaleDateString("en-GB", formattedDate)];
+    return [diffDays, given.toLocaleDateString("en-GB", formattedDate)];
   };
 
   return (
@@ -34,7 +34,6 @@ export default function Task({ task, taskSection, provided,snapshot }) {
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
-      
     >
       <div className="task__header">
         <p>{task.description}</p>
@@ -50,7 +49,7 @@ export default function Task({ task, taskSection, provided,snapshot }) {
           </div>
         </div>
       </div>
-      
+
       <div className="task__footer">
         <div className="task__info">
           <img

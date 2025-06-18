@@ -66,16 +66,12 @@ export default function Board() {
               <Droppable droppableId={section.toString()}>
                 {(provided, snapshot) => (
                   <div
-                    className={`section__tasks `}
+                    className={`section__tasks`}
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                   >
                     {taskList.map((task, indx) => (
-                      <div
-                        className={`${
-                          snapshot.isDragging ? "drag" : "task-container "
-                        } }`}
-                      >
+                      <div className="task-container">
                         <Draggable
                           draggableId={task.id.toString()}
                           index={indx}
@@ -103,6 +99,7 @@ export default function Board() {
                         + Add Task
                       </span>
                     )}
+                    {provided.placeholder}
                   </div>
                 )}
               </Droppable>

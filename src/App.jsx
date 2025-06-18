@@ -16,8 +16,9 @@ export default function App() {
     if (
       destination.droppableId === source.droppableId &&
       source.index === destination.index
-    )
+    ) {
       return;
+    }
 
     modifySectionTasks(
       source.droppableId,

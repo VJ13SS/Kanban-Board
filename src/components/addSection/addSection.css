@@ -11,7 +11,7 @@
     background-color: white;
     flex-shrink: 0;
     border: none;
-    color: gray;
+    color: rgb(191, 187, 187);
     cursor: pointer;
     font-weight: bold;
     display: flex;
