@@ -35,6 +35,8 @@
   border-radius: 10px;
   cursor: pointer;
   overflow-y: auto;
+  overflow-x: visible;
+  touch-action: none;
 }
 
 .task-container {

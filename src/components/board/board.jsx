@@ -5,8 +5,9 @@ import Task from "../task/task";
 import { MdMoreHoriz } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
 import AddTask from "../addTask/addTask";
-import { Draggable, Droppable } from "react-beautiful-dnd";
 import AddSection from "../addSection/addSection";
+import { closestCorners, DndContext } from "@dnd-kit/core";
+import Section from "../section/section";
 
 export default function Board() {
   //STATE
@@ -34,81 +35,33 @@ export default function Board() {
     }
   }, [Object.keys(sections).length]);
 
+  const onDragEnd = event => {
+    const {active,over} = event
+
+    console.log(active,over)
+  }
+
   return (
     <main className="container">
-      <div className="kanban-board" ref={scrollRef}>
-        <div className="kanban-board__sections">
-          {Object.entries(sections).map(([section, taskList], index) => (
-            <div className="section" key={index}>
-              <div className="section__header">
-                <span>
-                  {section === "ToDo"
-                    ? "To Do"
-                    : section === "InProgress"
-                    ? "In Progress"
-                    : section}
-                </span>
-                <div className="section__options">
-                  <FiPlus
-                    onClick={() => {
-                      return [setTaskSection(section), toggleTaskPopup()];
-                    }}
-                  />
-                  <div className="section__delete">
-                    <MdMoreHoriz />
-                    <div className="section__dropdown">
-                      <span onClick={() => deleteSection(section)}>Delete</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <DndContext collisionDetection={closestCorners} onDragEnd={onDragEnd}>
+        <div className="kanban-board" ref={scrollRef}>
+          <div className="kanban-board__sections">
+            {Object.entries(sections).map(([section, taskList], index) => (
+              <Section
+                key={section}
+                id={section}
+                taskList={taskList}
+                section={section}
+                setTaskSection={setTaskSection}
+                toggleTaskPopup={toggleTaskPopup}
+                deleteSection={deleteSection}
+              />
+            ))}
+          </div>
 
-              <Droppable droppableId={section.toString()}>
-                {(provided, snapshot) => (
-                  <div
-                    className={`section__tasks`}
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                  >
-                    {taskList.map((task, indx) => (
-                      <div className="task-container">
-                        <Draggable
-                          draggableId={task.id.toString()}
-                          index={indx}
-                          key={task.id}
-                        >
-                          {(provided, snapshot) => (
-                            <Task
-                              task={task}
-                              taskSection={section}
-                              provided={provided}
-                              snapshot={snapshot}
-                            />
-                          )}
-                        </Draggable>
-                      </div>
-                    ))}
-
-                    {taskList.length == 0 && (
-                      <span
-                        className="section__add-task"
-                        onClick={() => {
-                          return [setTaskSection(section), toggleTaskPopup()];
-                        }}
-                      >
-                        + Add Task
-                      </span>
-                    )}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </div>
-          ))}
+          {addTaskFlag && <AddTask taskSection={taskSection} />}
         </div>
-
-        {addTaskFlag && <AddTask taskSection={taskSection} />}
-      </div>
+      </DndContext>
       <AddSection />
     </main>
   );

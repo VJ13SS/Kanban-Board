@@ -1,8 +1,9 @@
 import { MdMoreHoriz } from "react-icons/md";
 import "./task.css";
 import useAppStore from "../../stateManagement/store";
+import { useDraggable } from "@dnd-kit/core";
 
-export default function Task({ task, taskSection, provided, snapshot }) {
+export default function Task({ task, taskSection }) {
   //Function to Delete the respective Task
   const deleteTask = useAppStore((state) => state.deleteTask);
 
@@ -28,12 +29,26 @@ export default function Task({ task, taskSection, provided, snapshot }) {
     return [diffDays, given.toLocaleDateString("en-GB", formattedDate)];
   };
 
+  const {attributes,listeners,setNodeRef,transform,transition} = useDraggable({
+    id:task.id,
+    data:{
+      task,
+      from:taskSection
+    }
+  })
+
+  const style = {
+    transform:`translate(${transform?.x}px,${transform?.y}px)`,
+    transition
+  }
+
   return (
     <div
       className="task"
-      ref={provided.innerRef}
-      {...provided.draggableProps}
-      {...provided.dragHandleProps}
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={style}
     >
       <div className="task__header">
         <p>{task.description}</p>

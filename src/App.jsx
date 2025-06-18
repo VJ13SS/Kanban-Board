@@ -1,6 +1,6 @@
 import Header from "./components/header/header";
 import Board from "./components/Board/board";
-import { DragDropContext } from "react-beautiful-dnd";
+
 import useAppStore from "./stateManagement/store";
 
 export default function App() {
@@ -31,9 +31,9 @@ export default function App() {
   return (
     <div className="app">
       <Header />
-      <DragDropContext onDragEnd={onDragEnd}>
+      
         <Board />
-      </DragDropContext>
+     
     </div>
   );
 }
