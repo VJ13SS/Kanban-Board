@@ -2,8 +2,10 @@ import { MdMoreHoriz } from "react-icons/md";
 import "./task.css";
 import useAppStore from "../../stateManagement/store";
 import { useDraggable } from "@dnd-kit/core";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
-export default function Task({ task, taskSection }) {
+export default function Task({ task, taskSection,index }) {
   //Function to Delete the respective Task
   const deleteTask = useAppStore((state) => state.deleteTask);
 
@@ -29,17 +31,25 @@ export default function Task({ task, taskSection }) {
     return [diffDays, given.toLocaleDateString("en-GB", formattedDate)];
   };
 
-  const {attributes,listeners,setNodeRef,transform,transition} = useDraggable({
-    id:task.id,
-    data:{
-      task,
-      from:taskSection
-    }
-  })
+  const { attributes, listeners, setNodeRef, transform,transition,isDragging } = useDraggable({
+    id: task.id,
+    data: {
+      column: taskSection,
+      index:index,
+      task:task
+    },
+  });
+
+  /*const style = {
+    transform: transform
+      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+      : undefined,
+    transition: !transform ? "transform 0.2s ease" : undefined,
+  };*/
 
   const style = {
-    transform:`translate(${transform?.x}px,${transform?.y}px)`,
-    transition
+    transition,
+    transform: transform?`translate3d(${transform.x}px, ${transform.y}px, 0)`:undefined
   }
 
   return (

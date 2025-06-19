@@ -35,16 +35,16 @@ export default function Board() {
     }
   }, [Object.keys(sections).length]);
 
-  const onDragEnd = event => {
-    const {active,over} = event
+  const onDragEnd = (event) => {
+    const { active, over } = event;
 
-    console.log(active,over)
-  }
+    console.log(active, over);
+  };
 
   return (
     <main className="container">
-      <DndContext collisionDetection={closestCorners} onDragEnd={onDragEnd}>
-        <div className="kanban-board" ref={scrollRef}>
+      <div className="kanban-board" ref={scrollRef}>
+        
           <div className="kanban-board__sections">
             {Object.entries(sections).map(([section, taskList], index) => (
               <Section
@@ -58,10 +58,11 @@ export default function Board() {
               />
             ))}
           </div>
+       
 
-          {addTaskFlag && <AddTask taskSection={taskSection} />}
-        </div>
-      </DndContext>
+        {addTaskFlag && <AddTask taskSection={taskSection} />}
+      </div>
+
       <AddSection />
     </main>
   );

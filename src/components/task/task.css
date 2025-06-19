@@ -21,6 +21,7 @@
   align-items: center;
 }
 
+
 .task__header {
   cursor: pointer;
 }
@@ -28,6 +29,10 @@
 .task__header p {
   max-width: 90%;
   
+}
+
+.task--drag{
+  background-color: red;
 }
 
 

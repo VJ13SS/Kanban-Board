@@ -1,8 +1,13 @@
 import { useDroppable } from "@dnd-kit/core";
 import Task from "../task/task";
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import { MdMoreHoriz } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
+
+
 export default function Section({
   id,
   taskList,
@@ -11,8 +16,7 @@ export default function Section({
   toggleTaskPopup,
   deleteSection,
 }) {
-
-    const {setNodeRef} = useDroppable({id})
+  const { setNodeRef } = useDroppable({ id:section });
   return (
     <div className="section" ref={setNodeRef}>
       <div className="section__header">
@@ -38,16 +42,10 @@ export default function Section({
         </div>
       </div>
 
-      <SortableContext items={taskList.map(task => task)} strategy={verticalListSortingStrategy}>
-        <div className="section__tasks">
-        {taskList.map((task, indx) => (
+      <div className="section__tasks">
         
-            <Task
-              task={task}
-              taskSection={section}
-              
-            />
-          
+        {taskList.map((task, indx) => (
+          <Task task={task} taskSection={section} key={indx} index={indx}/>
         ))}
 
         {taskList.length == 0 && (
@@ -61,9 +59,6 @@ export default function Section({
           </span>
         )}
       </div>
-      </SortableContext>
-
-      
     </div>
   );
 }

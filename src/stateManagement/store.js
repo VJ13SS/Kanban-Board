@@ -67,17 +67,27 @@ const store = (set) => ({
   }),
 
   //Function to modify the arrangement of tasks on each section upon drag
-  modifySectionTasks:(sourceSection,sourceIndx,destinationSection,destinationIndx) => set((state) => {
+  modifySectionTasks:(active,over) => set((state) => {
+
+    //console.log(active.column,over.column)
 
     //get the current task which was dragged
-    let currentTask = state.sections[sourceSection][sourceIndx]
+    let currentTask = state.sections[active.data.current.column][active.data.current.index]
 
     
     //delete the rescpective task from the source array
-    state.sections[sourceSection].splice(sourceIndx,1)
+    state.sections[active.data.current.column].splice(active.data.current.index,1)
 
-    //add the task to the destination array
-    state.sections[destinationSection].splice(destinationIndx,0,currentTask)
+    if(over.data.current === undefined){
+      
+      console.log(over.data)
+      state.sections[over.id].splice(0,0,currentTask)
+    }
+    else{
+      //add the task to the destination array
+    state.sections[over.current.column].splice(over.cuurent.index,0,currentTask)
+    }
+    
     return {
       sections:{...state.sections}
     }
