@@ -2,7 +2,6 @@ import { useDroppable } from "@dnd-kit/core";
 import Task from "../task/task";
 import {
   SortableContext,
-  verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { MdMoreHoriz } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
@@ -43,10 +42,11 @@ export default function Section({
       </div>
 
       <div className="section__tasks">
-        
+        <SortableContext items={taskList.map(item => item.id)}>
         {taskList.map((task, indx) => (
           <Task task={task} taskSection={section} key={indx} index={indx}/>
         ))}
+        </SortableContext>
 
         {taskList.length == 0 && (
           <span

@@ -1,12 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import useAppStore from "../../stateManagement/store";
 import "./board.css";
-import Task from "../task/task";
-import { MdMoreHoriz } from "react-icons/md";
-import { FiPlus } from "react-icons/fi";
 import AddTask from "../addTask/addTask";
 import AddSection from "../addSection/addSection";
-import { closestCorners, DndContext } from "@dnd-kit/core";
 import Section from "../section/section";
 
 export default function Board() {

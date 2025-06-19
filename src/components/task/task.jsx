@@ -1,7 +1,6 @@
 import { MdMoreHoriz } from "react-icons/md";
 import "./task.css";
 import useAppStore from "../../stateManagement/store";
-import { useDraggable } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
@@ -31,7 +30,7 @@ export default function Task({ task, taskSection,index }) {
     return [diffDays, given.toLocaleDateString("en-GB", formattedDate)];
   };
 
-  const { attributes, listeners, setNodeRef, transform,transition,isDragging } = useDraggable({
+  const { attributes, listeners, setNodeRef, transform,transition,isDragging } = useSortable({
     id: task.id,
     data: {
       column: taskSection,
@@ -40,16 +39,9 @@ export default function Task({ task, taskSection,index }) {
     },
   });
 
-  /*const style = {
-    transform: transform
-      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
-      : undefined,
-    transition: !transform ? "transform 0.2s ease" : undefined,
-  };*/
-
   const style = {
     transition,
-    transform: transform?`translate3d(${transform.x}px, ${transform.y}px, 0)`:undefined
+    transform: CSS.Transform.toString(transform)
   }
 
   return (
