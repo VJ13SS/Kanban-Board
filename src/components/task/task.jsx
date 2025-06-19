@@ -3,10 +3,14 @@ import "./task.css";
 import useAppStore from "../../stateManagement/store";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { useEffect, useState } from "react";
 
-export default function Task({ task, taskSection,index }) {
+export default function Task({ task, taskSection, index,setOver,setActive}) {
+
+  const [toggleDropdown,setToggleDropdown] = useState(false)
   //Function to Delete the respective Task
   const deleteTask = useAppStore((state) => state.deleteTask);
+  const toggleTaskPopup = useAppStore((state) => state.toggleTaskPopup);
 
   //Functon to Format the Date
   const checkDate = (date) => {
@@ -30,19 +34,39 @@ export default function Task({ task, taskSection,index }) {
     return [diffDays, given.toLocaleDateString("en-GB", formattedDate)];
   };
 
-  const { attributes, listeners, setNodeRef, transform,transition,isDragging } = useSortable({
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+    active,
+    over,
+  } = useSortable({
     id: task.id,
     data: {
       column: taskSection,
-      index:index,
-      task:task
+      index: index,
+      task: task,
     },
   });
 
   const style = {
     transition,
-    transform: CSS.Transform.toString(transform)
+    transform: CSS.Transform.toString(transform),
+  };
+
+  if (isDragging) {
+    setOver(over)
+    setActive(active)
+    return <div className="drag" ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={style}></div>;
   }
+
+ 
 
   return (
     <div
@@ -51,19 +75,22 @@ export default function Task({ task, taskSection,index }) {
       {...attributes}
       {...listeners}
       style={style}
+      
     >
       <div className="task__header">
         <p>{task.description}</p>
         <div className="task__menu">
-          <MdMoreHoriz />
-          <div className="task__dropdown">
+          <MdMoreHoriz onClick={() => setToggleDropdown(prev => !prev)}/>
+            {toggleDropdown && 
+          <div className="task__dropdown" onClick={() => setToggleDropdown(prev => !prev)}>
+            <span onClick={() => toggleTaskPopup(taskSection, task)}>Edit</span>
             <span
               className="task__delete"
               onClick={() => deleteTask(taskSection, task.id)}
             >
               Delete
             </span>
-          </div>
+          </div>}
         </div>
       </div>
 

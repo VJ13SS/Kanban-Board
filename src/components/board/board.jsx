@@ -1,21 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import useAppStore from "../../stateManagement/store";
 import "./board.css";
-import AddTask from "../addTask/addTask";
 import AddSection from "../addSection/addSection";
 import Section from "../section/section";
 
 export default function Board() {
   //STATE
-  const [taskSection, setTaskSection] = useState("");
   const scrollRef = useRef(null);
   const sections = useAppStore((state) => state.sections);
 
   //ACTION
-  const deleteSection = useAppStore((state) => state.deleteSection);
-  const addTaskFlag = useAppStore((state) => state.addTaskPopUp);
-  const toggleTaskPopup = useAppStore((state) => state.toggleTaskPopup);
-
   useEffect(() => {
     if (scrollRef.current) {
       const sectionElements = scrollRef.current.querySelectorAll(".section");
@@ -31,32 +25,14 @@ export default function Board() {
     }
   }, [Object.keys(sections).length]);
 
-  const onDragEnd = (event) => {
-    const { active, over } = event;
-
-    console.log(active, over);
-  };
-
   return (
     <main className="container">
       <div className="kanban-board" ref={scrollRef}>
-        
-          <div className="kanban-board__sections">
-            {Object.entries(sections).map(([section, taskList], index) => (
-              <Section
-                key={section}
-                id={section}
-                taskList={taskList}
-                section={section}
-                setTaskSection={setTaskSection}
-                toggleTaskPopup={toggleTaskPopup}
-                deleteSection={deleteSection}
-              />
-            ))}
-          </div>
-       
-
-        {addTaskFlag && <AddTask taskSection={taskSection} />}
+        <div className="kanban-board__sections">
+          {Object.entries(sections).map(([section, taskList], index) => (
+            <Section key={section} taskList={taskList} section={section} />
+          ))}
+        </div>
       </div>
 
       <AddSection />

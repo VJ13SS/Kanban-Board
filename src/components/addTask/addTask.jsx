@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./addTask.css";
 import { MdClose } from "react-icons/md";
 import useAppStore from "../../stateManagement/store";
 import { v4 as uuidv4 } from "uuid";
 
-export default function AddTask({ taskSection }) {
+export default function AddTask({ taskSection, task }) {
   //STATE
   const [userImg, setUserImg] = useState(false);
   const [newTask, setNewTask] = useState({});
@@ -18,8 +18,18 @@ export default function AddTask({ taskSection }) {
       return;
     }
     e.preventDefault();
-    addNewTask(taskSection, { ...newTask, userImg: userImg, id: uuidv4() });
+    addNewTask(taskSection, {
+      ...newTask,
+      userImg: userImg,
+      id: newTask.id ? newTask.id : uuidv4(),
+    });
   };
+
+  useEffect(() => {
+    if (Object.keys(task).length > 0) {
+      setNewTask(task);
+    }
+  }, []);
 
   return (
     <div className="add-task">
@@ -27,7 +37,7 @@ export default function AddTask({ taskSection }) {
         <MdClose className="close-icon" onClick={toggleTaskPopup} />
 
         <label>Section: </label>
-        <input type="text" value={taskSection} readOnly />
+        <input type="text" name='taskSection'  value={taskSection} readOnly />
 
         <label>Task Name / Category: </label>
         <input
@@ -38,6 +48,7 @@ export default function AddTask({ taskSection }) {
           onChange={(e) =>
             setNewTask((prev) => ({ ...prev, [e.target.name]: e.target.value }))
           }
+          value={newTask["category"]}
         />
 
         <label>Descritpion: </label>
@@ -49,6 +60,7 @@ export default function AddTask({ taskSection }) {
           onChange={(e) =>
             setNewTask((prev) => ({ ...prev, [e.target.name]: e.target.value }))
           }
+          value={newTask["description"]}
         />
 
         <label>Due Date: </label>
@@ -59,6 +71,7 @@ export default function AddTask({ taskSection }) {
           onChange={(e) =>
             setNewTask((prev) => ({ ...prev, [e.target.name]: e.target.value }))
           }
+          value={newTask["date"]}
         />
 
         <label htmlFor="userImg" className="add-task__user">
@@ -81,7 +94,6 @@ export default function AddTask({ taskSection }) {
         />
 
         <button type="submit">Add Task</button>
-
       </form>
     </div>
   );

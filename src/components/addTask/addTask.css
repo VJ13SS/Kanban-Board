@@ -7,7 +7,6 @@
     width: 100vw;
     min-height: 100vh;
     background-color: transparent;
-    backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,7 +23,7 @@
     border-radius: 15px;
     position: relative;
     border: 1px solid gray;
-    animation: fadeIn 2s;
+    animation: fadeIn 1s;
     font-weight: 500;
 }
 

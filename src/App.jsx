@@ -1,53 +1,66 @@
 import Header from "./components/header/header";
 import Board from "./components/Board/board";
-
 import useAppStore from "./stateManagement/store";
-import { closestCorners, DndContext } from "@dnd-kit/core";
+import { closestCorners, DndContext, DragOverlay, MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
+import AddTask from "./components/addTask/addTask";
+import { useState } from "react";
+import Task from "./components/task/task";
 
 export default function App() {
+
+  //STATE
+  const [activeTask,setActiveTask] = useState(null)
+  const addTaskFlag = useAppStore((state) => state.addTaskPopUp);
+  const addTaskSection = useAppStore((state) => state.addTaskSection);
+  const editTask = useAppStore((state) => state.editTask);
+
+  //ACTIONS
   //Function to rearrange the tasks on each section
   const modifySectionTasks = useAppStore((state) => state.modifySectionTasks);
-
-  //onDragEnd Function
-  /*const onDragEnd = (result) => {
-    const { source, destination } = result;
-
-    if (!destination) return;
-
-    if (
-      destination.droppableId === source.droppableId &&
-      source.index === destination.index
-    ) {
-      return;
-    }
-
-    modifySectionTasks(
-      source.droppableId,
-      source.index,
-      destination.droppableId,
-      destination.index
-    );
-  };*/
-
+  
   const onDragEnd = (event) => {
     const { active, over } = event;
-    console.log('End',active,over)
-    //console.log(active.data.current, over.data.current);
+    setActiveTask(null)
     modifySectionTasks(active, over)
   };
 
-  const onDragMove = (event) => {
-    const { active, over } = event;
+  const onDragStart = (event) => {
+    const {active,over} = event
+    
+    setActiveTask(active.data.current)
+  }
 
-    console.log('Move',active, over);
-  };
+
+  const sensors = useSensors(
+    useSensor(
+      MouseSensor,{
+        activationConstraint:{
+          delay:200,//only drag if pressed for 200ms
+          tolerance:5//or moved at least 5px
+        }
+      }
+    ),
+    useSensor(
+      TouchSensor,{
+        activationConstraint:{
+          delay:250,
+          tolerance:5
+        }
+      }
+    )
+  )
 
   return (
     <div className="app">
       <Header />
-      <DndContext onDragEnd={onDragEnd} onDragMove={onDragMove} collisionDetection={closestCorners}>
+      <DndContext onDragEnd={onDragEnd}  collisionDetection={closestCorners} onDragStart={onDragStart} sensors={sensors}>
         <Board />
+        <DragOverlay>
+          {activeTask ? <Task task={activeTask.task} taskSection={activeTask.column} index={activeTask.index} /> :null}
+        </DragOverlay>
+        
      </DndContext>
+     {addTaskFlag && <AddTask taskSection = {addTaskSection} task={editTask}/>}
     </div>
   );
 }

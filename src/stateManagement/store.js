@@ -8,13 +8,21 @@ const store = (set) => ({
     InProgress: [],
     Done: [],
   },
+  editTask: {},
+  addTaskSection: "",
   addTaskPopUp: false, //Flag to display the addTask Component
 
   //ACTIONS
 
   //Function to toggle the addTaskPopup Flad
-  toggleTaskPopup: () =>
-    set((state) => ({ addTaskPopUp: !state.addTaskPopUp })),
+  toggleTaskPopup: (section, task) =>
+    set((state) => {
+      return {
+        addTaskPopUp: !state.addTaskPopUp,
+        addTaskSection: section,
+        editTask: task,
+      };
+    }),
 
   //Function to add new section
   addNewSection: (newSection) =>
@@ -30,13 +38,18 @@ const store = (set) => ({
 
   //Function to add new Task
   addNewTask: (section, task) =>
-    set((state) => ({
-      sections: {
-        ...state.sections,
-        [section]: [task, ...state.sections[section]],
-      },
-      addTaskPopUp: !state.addTaskPopUp,
-    })),
+    set((state) => {
+      return {
+        sections: {
+          ...state.sections,
+          [section]: [
+            task,
+            ...state.sections[section].filter((items) => items.id != task.id),
+          ],
+        },
+        addTaskPopUp: !state.addTaskPopUp,
+      };
+    }),
 
   //Function to delete a Section
   deleteSection: (section) =>
@@ -76,6 +89,11 @@ const store = (set) => ({
   modifySectionTasks: (active, over) =>
     set((state) => {
       //console.log(active.column,over.column)
+      if (!over) {
+        return {
+          sections: { ...state.sections },
+        };
+      }
 
       //get the current task which was dragged
       let currentTask =

@@ -1,5 +1,5 @@
 .task {
-  width: 100%;
+  width: 280px;
   min-height: 90px;
   padding: 10px;
   background-color: white;
@@ -11,6 +11,7 @@
   position: relative;
   flex-shrink: 0;
   font-size: 0.83rem;
+  touch-action: none;
 }
 
 .task__header,
@@ -21,20 +22,13 @@
   align-items: center;
 }
 
-
 .task__header {
   cursor: pointer;
 }
 
 .task__header p {
   max-width: 90%;
-  
 }
-
-.task--drag{
-  background-color: red;
-}
-
 
 .task__info img {
   border-radius: 50%;
@@ -42,7 +36,6 @@
   width: 24px;
   height: 24px;
 }
-
 
 .task__category {
   background-color: #f5f5f5;
@@ -55,17 +48,22 @@
   background-color: white;
   border: 1px solid gray;
   padding: 5px 7px;
-  color: red;
   border-radius: 3px;
   position: absolute;
   top: 15px;
   right: 7px;
-  display: none;
+  display: flex;
   font-size: 0.85rem;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.task__menu:hover .task__dropdown {
-  display: block;
+.task__delete {
+  color: red;
+}
+
+.task-container {
+  width: 100%;
 }
 
 .tomorrow {
@@ -78,15 +76,18 @@
   font-weight: 600;
 }
 
-.today{
-  color:black;
+.today {
+  color: black;
   font-weight: 600;
 }
 
-.other{
-  color:gray;
+.other {
+  color: gray;
 }
 
-.drag{
-  box-shadow: 0px 0px 5px black;
+.drag {
+  width: 100%;
+  min-height: 90px;
+  background: rgba(113, 112, 112, 0.1);
+  border-radius: 10px;
 }
