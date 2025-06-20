@@ -16,8 +16,8 @@ A **Kanban Board** is a visual tool used to manage and track workflow efficientl
 - ❌ **Delete tasks** ✏️ **Edit tasks** using the “More” (three dots) button on each task card
 - 🌐 Responsive layout that adjusts for both desktop and mobile screens
 
-> Double click and hold to drag the task
-> Double click on “More” (three dots) to open the task options(Edit,Delete)
-> Double click on options(Edit,Delete) to activate the respective functionality
+> • Double click and hold to drag the task
+> • Double click on “More” (three dots) to open the task options(Edit,Delete)
+> • Double click on options(Edit,Delete) to activate the respective functionality
 
 
