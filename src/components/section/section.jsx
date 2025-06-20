@@ -1,21 +1,19 @@
 import { useDroppable } from "@dnd-kit/core";
 import Task from "../task/task";
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import { MdMoreHoriz } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
 import "./section.css";
 import useAppStore from "../../stateManagement/store";
-import { useState } from "react";
 
-export default function Section({ taskList, section}) {
-  const { setNodeRef } = useDroppable({ id: section });
-  const deleteSection = useAppStore((state) => state.deleteSection);
-  const toggleTaskPopup = useAppStore((state) => state.toggleTaskPopup);
-  const [taskSection, setTaskSection] = useState("");
-  const [over,setOver] = useState({})
-  const [active,setActive] = useState({})
+export default function Section({ taskList, section }) {
+  const { setNodeRef } = useDroppable({ id: section }); //node ref for each droppable section
+  const deleteSection = useAppStore((state) => state.deleteSection); //ACTION to delete a section
+  const toggleTaskPopup = useAppStore((state) => state.toggleTaskPopup); //ACTION to toggle task popup
 
-  console.log(over)
   return (
     <div className="section" ref={setNodeRef}>
       <div className="section__header">
@@ -29,7 +27,7 @@ export default function Section({ taskList, section}) {
         <div className="section__options">
           <FiPlus
             onClick={() => {
-              return toggleTaskPopup(section,{});
+              return toggleTaskPopup(section, {});
             }}
           />
           <div className="section__delete">
@@ -42,10 +40,14 @@ export default function Section({ taskList, section}) {
       </div>
 
       <div className="section__tasks">
-        <SortableContext items={taskList.map((item) => item.id)} strategy={verticalListSortingStrategy}>
+        <SortableContext
+          items={taskList.map((item) => item.id)}
+          strategy={verticalListSortingStrategy}
+        >
           {taskList.map((task, indx) => (
-               <Task task={task} taskSection={section} key={indx} index={indx} setOver={setOver} setActive={setActive}/>
-      
+            <>
+              <Task task={task} taskSection={section} key={indx} index={indx} />
+            </>
           ))}
         </SortableContext>
 
@@ -53,15 +55,13 @@ export default function Section({ taskList, section}) {
           <button
             className="section__add-task"
             onClick={() => {
-              return toggleTaskPopup(section,{});
+              return toggleTaskPopup(section, {});
             }}
           >
             + Add Task
           </button>
         )}
       </div>
-
-      
     </div>
   );
 }
