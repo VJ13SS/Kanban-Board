@@ -8,12 +8,19 @@ import { MdMoreHoriz } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
 import "./section.css";
 import useAppStore from "../../stateManagement/store";
+import { useState } from "react";
 
 export default function Section({ taskList, section }) {
+  //STATE
+  const [toggleDeletePopup, setToggleDeletePopup] = useState(false);
+
+  //ACTIONS
   const { setNodeRef } = useDroppable({ id: section }); //node ref for each droppable section
   const deleteSection = useAppStore((state) => state.deleteSection); //ACTION to delete a section
   const toggleTaskPopup = useAppStore((state) => state.toggleTaskPopup); //ACTION to toggle task popup
+  
 
+  console.log(toggleDeletePopup);
   return (
     <div className="section" ref={setNodeRef}>
       <div className="section__header">
@@ -31,10 +38,21 @@ export default function Section({ taskList, section }) {
             }}
           />
           <div className="section__delete">
-            <MdMoreHoriz />
-            <div className="section__dropdown">
-              <span onClick={() => deleteSection(section)}>Delete</span>
-            </div>
+            <MdMoreHoriz
+              onClick={() => setToggleDeletePopup((prev) => !prev)}
+            />
+            {toggleDeletePopup && (
+              <div className="section__dropdown">
+                <span
+                  onClick={() => [
+                    setToggleDeletePopup((prev) => !prev),
+                    deleteSection(section),
+                  ]}
+                >
+                  Delete
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>

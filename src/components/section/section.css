@@ -25,7 +25,7 @@
   margin-bottom: 5px;
   font-size: 0.9rem;
   font-weight: bold;
-  color: gray;
+  color: rgb(87, 86, 86);
 }
 
 .section__delete {
@@ -33,7 +33,7 @@
 }
 
 .section__dropdown {
-  display: none;
+  display: block;
   background-color: white;
   color: red;
   border: 1px solid gray;
@@ -48,9 +48,7 @@
   font-weight: 500;
 }
 
-.section__delete:hover .section__dropdown {
-  display: block;
-}
+
 
 .section__add-task {
   color:rgb(191, 187, 187);
