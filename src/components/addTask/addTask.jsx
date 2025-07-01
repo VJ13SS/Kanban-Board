@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./addTask.css";
-import { MdClose } from "react-icons/md";
+import { MdAdd, MdClose } from "react-icons/md";
 import useAppStore from "../../stateManagement/store";
 import { v4 as uuidv4 } from "uuid";
 
@@ -34,7 +34,8 @@ export default function AddTask({ taskSection, task }) {
   return (
     <div className="add-task">
       <form onSubmit={onSubmitHandler}>
-        <MdClose className="close-icon" onClick={toggleTaskPopup} />
+        <h1>Let's Add Something New</h1>
+        <MdClose className="close-icon" onClick={toggleTaskPopup} size={18} />
 
         <label>Section: </label>
         <input type="text" name='taskSection'  value={taskSection} readOnly />
@@ -93,7 +94,7 @@ export default function AddTask({ taskSection, task }) {
           onChange={(e) => setUserImg(e.target.files[0])}
         />
 
-        <button type="submit">Add Task</button>
+        <button type="submit"><MdAdd size={17}/> Add Task</button>
       </form>
     </div>
   );

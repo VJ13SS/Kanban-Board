@@ -6,8 +6,8 @@
     bottom: 0;
     width: 100vw;
     min-height: 100vh;
-    background-color: transparent;
-    backdrop-filter: blur(5px);
+    background-color: rgba(128, 128, 128, 0.3);
+    filter: grayscale(50%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,7 +20,7 @@
     padding: 15px;
     gap: 10px;
     background-color: white;
-    width: 50vw;
+    width: 40vw;
     border-radius: 15px;
     position: relative;
     border: 1px solid gray;
@@ -37,12 +37,21 @@
   }
 }
 
+.add-task form h1{
+    font-size: 20px;
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: 20px;
+}
+
 .add-task form label{
     font-size: 1rem;
+    font-weight: 600;
 }
 
 .add-task form input{
     border-bottom: 1px solid gray;
+    font-weight: 500;
 }
 
 .add-task__user{
@@ -64,6 +73,10 @@
     align-self: center;
     border-radius: 10px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    align-items: center;
 }
 
 .close-icon{
@@ -71,6 +84,12 @@
     top: 10px;
     right: 10px;
     cursor: pointer;
+}
+
+@media (max-width:800px){
+    .add-task form{
+        width: 50%;
+    }
 }
 
 @media (max-width:455px){

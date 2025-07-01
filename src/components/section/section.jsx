@@ -4,7 +4,7 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { MdMoreHoriz } from "react-icons/md";
+import { MdDelete, MdMoreHoriz } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
 import "./section.css";
 import useAppStore from "../../stateManagement/store";
@@ -18,11 +18,9 @@ export default function Section({ taskList, section }) {
   const { setNodeRef } = useDroppable({ id: section }); //node ref for each droppable section
   const deleteSection = useAppStore((state) => state.deleteSection); //ACTION to delete a section
   const toggleTaskPopup = useAppStore((state) => state.toggleTaskPopup); //ACTION to toggle task popup
-  
 
-  console.log(toggleDeletePopup);
   return (
-    <div className="section" ref={setNodeRef}>
+    <section className="section" ref={setNodeRef}>
       <div className="section__header">
         <span>
           {section === "ToDo"
@@ -39,14 +37,19 @@ export default function Section({ taskList, section }) {
           />
           <div className="section__delete">
             <MdMoreHoriz
-              onClick={() => setToggleDeletePopup((prev) => !prev)}
+              onClick={() => [
+                setToggleDeletePopup((prev) => !prev),
+                setTimeout(() => setToggleDeletePopup((prev) => !prev), 2500),
+              ]}
             />
             {toggleDeletePopup && (
               <div className="section__dropdown">
+                <MdDelete />
                 <span
                   onClick={() => [
                     setToggleDeletePopup((prev) => !prev),
                     deleteSection(section),
+                    setTimeout(() => setToggleDeletePopup((prev) => !prev), 2500),
                   ]}
                 >
                   Delete
@@ -80,6 +83,6 @@ export default function Section({ taskList, section }) {
           </button>
         )}
       </div>
-    </div>
+    </section>
   );
 }

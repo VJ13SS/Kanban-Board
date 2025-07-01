@@ -1,4 +1,4 @@
-import { MdMoreHoriz } from "react-icons/md";
+import { MdDelete, MdEdit, MdMoreHoriz } from "react-icons/md";
 import "./task.css";
 import useAppStore from "../../stateManagement/store";
 import { useSortable } from "@dnd-kit/sortable";
@@ -40,8 +40,6 @@ export default function Task({ task, taskSection, index }) {
     transform,
     transition,
     isDragging,
-    active,
-    over,
   } = useSortable({
     id: task.id,
     data: {
@@ -79,20 +77,25 @@ export default function Task({ task, taskSection, index }) {
       <div className="task__header">
         <p>{task.description}</p>
         <div className="task__menu">
-          <MdMoreHoriz onClick={() => setToggleDropdown((prev) => !prev)} />
+          <MdMoreHoriz
+            onClick={() => [
+              setToggleDropdown((prev) => !prev),
+              setTimeout(() => setToggleDropdown((prev) => !prev), 2500),
+            ]}
+          />
           {toggleDropdown && (
             <div
               className="task__dropdown"
-              onClick={() => setToggleDropdown((prev) => !prev)}
+              onClick={() => [setToggleDropdown((prev) => !prev),]}
             >
               <span onClick={() => toggleTaskPopup(taskSection, task)}>
-                Edit
+                <MdEdit /> Edit
               </span>
               <span
                 className="task__delete"
-                onClick={() => deleteTask(taskSection, task.id)}
+                onClick={() => [deleteTask(taskSection, task.id),setTimeout(() => setToggleDropdown((prev) => !prev), 2500),]}
               >
-                Delete
+                <MdDelete /> Delete
               </span>
             </div>
           )}

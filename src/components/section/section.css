@@ -45,10 +45,10 @@
   border-radius: 5px;
   font-size: 0.95rem;
   z-index: 1;
-  font-weight: 500;
+  font-weight: 600;
+  display: flex;
+  gap: 5px;
 }
-
-
 
 .section__add-task {
   color:rgb(191, 187, 187);

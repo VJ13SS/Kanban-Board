@@ -24,7 +24,6 @@ const store = (set) => ({
       };
     }),
 
-  //Function to add new section
   addNewSection: (newSection) =>
     set((state) => {
       //New Section is added before the Done section
@@ -36,7 +35,6 @@ const store = (set) => ({
       };
     }),
 
-  //Function to add new Task
   addNewTask: (section, task) =>
     set((state) => {
       return {
@@ -51,7 +49,6 @@ const store = (set) => ({
       };
     }),
 
-  //Function to delete a Section
   deleteSection: (section) =>
     set((state) => {
       if (
@@ -70,7 +67,6 @@ const store = (set) => ({
       return { sections: { ...state.sections } };
     }),
 
-  //Function to delete a Task
   deleteTask: (section, id) =>
     set((state) => {
       if (confirm("Do You Wish To Delete The Following Task?")) {
