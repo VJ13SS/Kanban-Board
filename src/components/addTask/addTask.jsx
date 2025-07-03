@@ -3,6 +3,7 @@ import "./addTask.css";
 import { MdAdd, MdClose } from "react-icons/md";
 import useAppStore from "../../stateManagement/store";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
 
 export default function AddTask({ taskSection, task }) {
   //STATE
@@ -11,31 +12,37 @@ export default function AddTask({ taskSection, task }) {
 
   //ACTIONS
   const toggleTaskPopup = useAppStore((state) => state.toggleTaskPopup);
+
+  
   const addNewTask = useAppStore((state) => state.addNewTask);
   const onSubmitHandler = (e) => {
-    if (!userImg) {
-      alert("Please Insert Attendee userImg..!");
-      return;
-    }
     e.preventDefault();
+    if (!userImg) {
+      toast.error('Upload User Image')
+      return
+    }
+    else{
+      
     addNewTask(taskSection, {
       ...newTask,
       userImg: userImg,
       id: newTask.id ? newTask.id : uuidv4(),
     });
+    }
+    
   };
 
   useEffect(() => {
     if (Object.keys(task).length > 0) {
       setNewTask(task);
+      setUserImg(task.userImg)
     }
   }, []);
 
   return (
     <div className="add-task">
       <form onSubmit={onSubmitHandler}>
-        <h1>Let's Add Something New</h1>
-        <MdClose className="close-icon" onClick={toggleTaskPopup} size={18} />
+        <h1>Add Something New</h1>
 
         <label>Section: </label>
         <input type="text" name='taskSection'  value={taskSection} readOnly />
@@ -89,12 +96,16 @@ export default function AddTask({ taskSection, task }) {
           accept="image/*"
           name=""
           id="userImg"
-          required
           hidden
           onChange={(e) => setUserImg(e.target.files[0])}
+
         />
 
-        <button type="submit"><MdAdd size={17}/> Add Task</button>
+        <div className="buttons">
+          <button onClick={toggleTaskPopup} className="cancel-button">Cancel</button>
+          <button type="submit">Add Task</button>
+        </div>
+        
       </form>
     </div>
   );

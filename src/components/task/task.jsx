@@ -80,7 +80,7 @@ export default function Task({ task, taskSection, index }) {
           <MdMoreHoriz
             onClick={() => [
               setToggleDropdown((prev) => !prev),
-              setTimeout(() => setToggleDropdown((prev) => !prev), 2500),
+              setTimeout(() => setToggleDropdown((prev) => false), 2500),
             ]}
           />
           {toggleDropdown && (
@@ -93,7 +93,7 @@ export default function Task({ task, taskSection, index }) {
               </span>
               <span
                 className="task__delete"
-                onClick={() => [deleteTask(taskSection, task.id),setTimeout(() => setToggleDropdown((prev) => !prev), 2500),]}
+                onClick={() => deleteTask(taskSection, task.id)}
               >
                 <MdDelete /> Delete
               </span>
