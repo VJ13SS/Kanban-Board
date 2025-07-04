@@ -12,8 +12,6 @@ export default function AddTask({ taskSection, task }) {
 
   //ACTIONS
   const toggleTaskPopup = useAppStore((state) => state.toggleTaskPopup);
-
-  
   const addNewTask = useAppStore((state) => state.addNewTask);
   const onSubmitHandler = (e) => {
     e.preventDefault();
